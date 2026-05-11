@@ -170,6 +170,13 @@ function initMap() {
                 "<h1>" + score + " Correct, " + (locations.length - score) + " Incorrect</h1>" +
                 "<h2>Time: You finished in " + seconds + " seconds</h2>" +
                 "<button onclick='location.reload()'>Play Again</button>";
+
+            //added confetti (extra feature)
+            confetti({
+                particleCount: 1000,
+                spread: 200,
+                origin: { y: 0.6 }
+            });
         }
     });
 }
