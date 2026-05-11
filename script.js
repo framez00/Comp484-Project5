@@ -17,14 +17,8 @@ function initMap() {
             }
         ],
 
-        //remove map/satellite button
-        mapTypeControl: false, 
-
-        //remove the yellow guy
-        streetViewControl: false,
-
-        //remove full screen button
-        fullscreenControl: false,
+        //removes the buttons
+        disableDefaultUI: true,
 
         //no dragging
         draggable: false,
@@ -35,6 +29,9 @@ function initMap() {
         //no double click zoom
         disableDoubleClickZoom: true,
 
+        //disable keyboard shortcuts
+        keyboardShortcuts: false,
+        
         //no movement, locks the map
         gestureHandling: "none"
     });
