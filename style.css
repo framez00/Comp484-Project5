@@ -1,0 +1,15 @@
+body{
+    margin: 0;
+    display: flex;
+    background-color: beige;
+}
+
+#sidebar {
+    width: 40%;
+    padding: 20px;
+}
+
+#map {
+    width: 60%;
+    height: 100vh;
+}
