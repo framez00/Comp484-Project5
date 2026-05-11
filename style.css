@@ -21,3 +21,26 @@ body{
     width: 60%;
     height: 100%;
 }
+
+/*questions have a box around them and i added the classes correct and wrong*/
+.questionBox{
+    background-color: #2f80c1;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    padding: 4px;
+}
+.correct{
+    color: green;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
+.wrong{
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 6px;
+}

@@ -81,7 +81,8 @@ function initMap() {
                 
     });
 
-    document.getElementById("question").innerHTML = "<p>" + locations[currentQuestion].name + "</p>";
+    //first question
+    document.getElementById("question").innerHTML = "<p class='questionBox'>" + locations[currentQuestion].name + "</p>";
 
     //double click
     map.addListener("dblclick", function(event){
@@ -102,19 +103,20 @@ function initMap() {
         )
         {
         //correct message
-            document.getElementById("question").innerHTML += "<p style='color:green;'>Your answer is correct!!</p>";
+            document.getElementById("question").innerHTML += "<p class='correct'>Your answer is correct!!</p>";
             score++;
         }
         //wrong message
         else{
-            document.getElementById("question").innerHTML += "<p style='color:red;'>Sorry wrong location.</p>";
+            document.getElementById("question").innerHTML += "<p class='wrong'>Sorry wrong location.</p>";
         }
+
         //increment the question
         currentQuestion++;
 
         //loop through the questions
         if(currentQuestion < locations.length){
-            document.getElementById("question").innerHTML += "<p>" + locations[currentQuestion].name + "</p>";
+            document.getElementById("question").innerHTML += "<p class='questionBox'>" + locations[currentQuestion].name + "</p>";
         }
         //once it finishes
         else{
