@@ -1,5 +1,4 @@
 //create locations
-let currentQuestion = 0;
 const locations = [
     {
         name: "Where is the Police Services building?",
@@ -7,8 +6,41 @@ const locations = [
         south: 34.23859032126264,
         east: -118.53306853811232,
         west: -118.53360497988338
+    },
+    {
+        name: "Where is the CSUN Library?",
+        north: 34.24040096439571,
+        south: 34.23962045734156,
+        east: -118.52863135770787,
+        west: -118.53003683514804
+    },
+
+    {
+        name: "Where is Jacaranda Hall?",
+        north: 34.24208441912933,
+        south: 34.241055587979304,
+        east: -118.52786344846811,
+        west: -118.52947277378128
+    },
+
+    {
+        name: "Where is the Campus Store?",
+        north: 34.237738423815244,
+        south: 34.23704957656588,
+        east: -118.52773092039676,
+        west: -118.52867167034485
+    },
+
+    {
+        name: "Where is Live Oak Hall?",
+        north: 34.23837247342718,
+        south: 34.23818122473778,
+        east: -118.52763317018528,
+        west: -118.52877206749625
     }
 ];
+let currentQuestion = 0;
+let score = 0;
 
 function initMap() {
     //csun coordinates
@@ -49,26 +81,45 @@ function initMap() {
                 
     });
 
-    document.getElementById("question").innerText = locations[currentQuestion].name;
+    document.getElementById("question").innerHTML = "<p>" + locations[currentQuestion].name + "</p>";
 
     //double click
     map.addListener("dblclick", function(event){
+        //adding a check so that you cant keep double clicking after all questions were answered
+        if(currentQuestion >= locations.length){
+            return;
+        }
         const clickedLat = event.latLng.lat();
         const clickedLng = event.latLng.lng();
-    
         const current = locations[currentQuestion];
+
         //check if clicked location alignes with coordinates
         if(
             clickedLat <= current.north &&
             clickedLat >= current.south &&
             clickedLng <= current.east &&
             clickedLng >= current.west
-        ){
-            alert("Correct!");
+        )
+        {
+        //correct message
+            document.getElementById("question").innerHTML += "<p style='color:green;'>Your answer is correct!!</p>";
+            score++;
         }
+        //wrong message
         else{
-            alert("Wrong!");
+            document.getElementById("question").innerHTML += "<p style='color:red;'>Sorry wrong location.</p>";
         }
-    
+        //increment the question
+        currentQuestion++;
+
+        //loop through the questions
+        if(currentQuestion < locations.length){
+            document.getElementById("question").innerHTML += "<p>" + locations[currentQuestion].name + "</p>";
+        }
+        //once it finishes
+        else{
+            document.getElementById("question").innerHTML += 
+                "<h1>" + score + " Correct, " + (locations.length - score) + " Incorrect</h1>";
+        }
     });
 }
