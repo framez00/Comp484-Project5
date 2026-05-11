@@ -41,6 +41,7 @@ const locations = [
 ];
 let currentQuestion = 0;
 let score = 0;
+let startTime; //for timer (extra feature)
 
 function initMap() {
     //csun coordinates
@@ -81,6 +82,9 @@ function initMap() {
                 
     });
 
+    //start the timer
+    startTime = Date.now();
+
     //first question
     document.getElementById("question").innerHTML = "<p class='questionBox'>" + locations[currentQuestion].name + "</p>";
 
@@ -94,7 +98,7 @@ function initMap() {
         const clickedLng = event.latLng.lng();
         const current = locations[currentQuestion];
 
-        //check if clicked location alignes with coordinates
+        //check if clicked location aligns with coordinates
         if(
             clickedLat <= current.north &&
             clickedLat >= current.south &&
@@ -105,10 +109,44 @@ function initMap() {
         //correct message
             document.getElementById("question").innerHTML += "<p class='correct'>Your answer is correct!!</p>";
             score++;
+
+            //rectangle
+            new google.maps.Rectangle({
+                map: map,
+                bounds: {
+                    north: current.north,
+                    south: current.south,
+                    east: current.east,
+                    west: current.west
+                },
+                strokeColor: "green",
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                
+                fillColor: "green",
+                fillOpacity: 0.35
+            });
         }
         //wrong message
         else{
             document.getElementById("question").innerHTML += "<p class='wrong'>Sorry wrong location.</p>";
+
+            //rectangle
+            new google.maps.Rectangle({
+                map: map,
+                bounds: {
+                    north: current.north,
+                    south: current.south,
+                    east: current.east,
+                    west: current.west
+                },
+                strokeColor: "red",
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                
+                fillColor: "red",
+                fillOpacity: 0.35
+            });
         }
 
         //increment the question
@@ -120,8 +158,18 @@ function initMap() {
         }
         //once it finishes
         else{
+            //end timer
+            let endTime = Date.now();
+            let seconds = Math.floor((endTime - startTime) / 1000);
+
+            //final output
+            //count of correct and incorrect choices
+            //added timer (extra feature)
+            //added button to play again (extra feature)
             document.getElementById("question").innerHTML += 
-                "<h1>" + score + " Correct, " + (locations.length - score) + " Incorrect</h1>";
+                "<h1>" + score + " Correct, " + (locations.length - score) + " Incorrect</h1>" +
+                "<h2>Time: You finished in " + seconds + " seconds</h2>" +
+                "<button onclick='location.reload()'>Play Again</button>";
         }
     });
 }
